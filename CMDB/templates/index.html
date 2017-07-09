@@ -1,0 +1,97 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="content-wrapper" style="min-height: 700px">
+        <div class="container">
+            <div class="row pad-botm">
+
+                <div id="main" style="width: 550px;height:400px; float: left; display: inline"></div>
+                <div id="main2" style="width: 550px;height:400px; float: right; display: inline"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'CMDB资产'
+            },
+            tooltip: {},
+            legend: {
+                data: ['数量']
+            },
+            xAxis: {
+                data: ["Server", "Network", "Storage", "Security", "Software", "Others"]
+            },
+            yAxis: {},
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: [{{ server_count }}, {{ network_count }}, {{ storage_count }}, {{ security_count }}, {{ software_count }}, {{ others_count }}]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+        var myChart2 = echarts.init(document.getElementById('main2'));
+        var option2 = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data:['故障','下线','在线','未知','其他']
+            },
+            series: [
+                {
+                    name:'访问来源',
+                    type:'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        {value:{{ fault_count }}, name:'故障'},
+                        {value:{{ offline_count }}, name:'下线'},
+                        {value:{{ online_count }}, name:'在线'},
+                        {value:{{ unknown_count }}, name:'未知'},
+                        {value:{{ other_status }}, name:'其他'}
+                    ]
+                }
+            ]
+        };
+        myChart2.setOption(option2);
+
+    </script>
+
+{% endblock %}

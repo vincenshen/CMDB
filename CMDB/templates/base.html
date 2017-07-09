@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>HORIZONTAL ADMIN</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" />
+    <!-- FONT AWESOME STYLE  -->
+    <link href="{% static "css/font-awesome.css" %}" rel="stylesheet" />
+    <!-- CUSTOM STYLE  -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet" />
+    <script src="{% static "js/echarts.common.min.js" %}"></script>
+
+</head>
+
+
+<body>
+    <div class="navbar navbar-inverse set-radius-zero" >
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="{% static "img/python-logo.png" %}" style="height: 60px; width: 200px"/>
+                </a>
+            </div>
+
+{#            <div class="right-div">#}
+{#                <a href="" style="color:#64448f; font-size:16px">Dear&nbsp;{{ request.session.username }}&nbsp;&nbsp;</a>#}
+{#                <a href="{% url "logout" %}" class="btn btn-danger pull-right">LOG ME OUT</a>#}
+{#            </div>#}
+        </div>
+    </div>
+    <!-- LOGO HEADER END-->
+
+    <section class="menu-section">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><a href="{% url "index" %}" {% if page == "index" %}class="menu-top-active"{% endif %}>Index home</a></li>
+                            <li><a href="{% url "asset_list" %}" {% if page == "list" %}class="menu-top-active"{% endif %}>Asset List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- MENU SECTION END-->
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <section class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                   &copy; 2017 Oldboyedu.com | More Information <a href=""  title="oldboy">老男孩教育</a></div>
+
+            </div>
+        </div>
+    </section>
+      <!-- FOOTER SECTION END-->
+
+
+
+    <!-- CORE JQUERY  -->
+    <script src="{% static "js/jquery-1.11.1.js" %}"></script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="{% static "js/bootstrap.js" %}"></script>
+      <!-- CUSTOM SCRIPTS  -->
+    <script src="{% static "js/custom.js" %}"></script>
+    {% block js %}
+    {% endblock %}
+</body>
+</html>
